@@ -1,9 +1,10 @@
 import Image from "next/image";
+import Header from "./_components/header";
 
 export default function Home() {
   return (
-    <div className="bg-red-500 px-3">
-      <h1>Hello taiwind!</h1>
+    <div className="">
+      <Header />
     </div>
   );
 }
