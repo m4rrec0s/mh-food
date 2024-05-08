@@ -3,6 +3,7 @@ import CategoryList from "./_components/category-list";
 import Header from "./_components/header";
 import Search from "./_components/search";
 import { Fullscreen } from "lucide-react";
+import ProductList from "./_components/product-list";
 
 export default function Home() {
   return (
@@ -25,6 +26,8 @@ export default function Home() {
           sizes="100vh"
         />
       </div>
+
+      <ProductList />
     </>
   );
 }
