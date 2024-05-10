@@ -59,7 +59,7 @@ const ProductDetails = ({
             className="rounded-full object-cover"
           />
         </div>
-        <span className="px-5 text-xs text-muted-foreground">
+        <span className="text-xs text-muted-foreground">
           {product.restaurant.name}
         </span>
       </div>
