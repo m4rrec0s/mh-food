@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { searchForRestaurants } from "./_actions/search";
 import Header from "../_components/header";
 import RestaurantItem from "../_components/restaurant-item";
-import { Search } from "lucide-react";
 
 const Restaurants = () => {
   const searchParams = useSearchParams();
