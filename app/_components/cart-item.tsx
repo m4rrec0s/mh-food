@@ -1,14 +1,20 @@
 import Image from "next/image";
-import { CartProduct } from "../_context/cart";
+import { CartContext, CartProduct } from "../_context/cart";
 import { calculateProductTotalPrice, formatCurrency } from "../_helpers/price";
 import { Button } from "./ui/button";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon, TrashIcon } from "lucide-react";
+import { useContext } from "react";
 
 interface CartItemProps {
   cartProduct: CartProduct;
 }
 
 const CartItem = ({ cartProduct }: CartItemProps) => {
+  const { decreaseProduct, increaseProduct, removeProductFromCart } = useContext(CartContext);
+
+  const handleDecreaseQuantityClick = () => decreaseProduct(cartProduct.id);
+  const handleIncreaseQuantityClick = () => increaseProduct(cartProduct.id);
+  const handleRemoveProductFromCartClick = () => removeProductFromCart(cartProduct.id);
 
   return (
     <div className="flex items-center justify-between">
@@ -23,15 +29,15 @@ const CartItem = ({ cartProduct }: CartItemProps) => {
         </div>
 
         <div className="space-y-1">
-          <h3 className="text-xs text-left">{cartProduct.name}</h3>
+          <h3 className="text-left text-xs">{cartProduct.name}</h3>
           <div className="flex items-center gap-1">
             <h4 className="text-sm font-semibold">
-              {formatCurrency(calculateProductTotalPrice(cartProduct))}
+              {formatCurrency(calculateProductTotalPrice(cartProduct) * cartProduct.quantity)}
             </h4>
             {cartProduct.discountPercentage > 0 && (
               <span className="text-xs text-muted-foreground line-through">
                 {" "}
-                {formatCurrency(Number(cartProduct.price))}
+                {formatCurrency(Number(cartProduct.price) * cartProduct.quantity)}
               </span>
             )}
           </div>
@@ -40,18 +46,32 @@ const CartItem = ({ cartProduct }: CartItemProps) => {
             <Button
               size="icon"
               variant="ghost"
-              className="border border-solid border-muted-foreground h-8 w-8"
+              className="h-8 w-8 border border-solid border-muted-foreground"
+              onClick={handleDecreaseQuantityClick}
             >
               <ChevronLeftIcon size={18} />
             </Button>
             <span className="w-5 text-sm">{cartProduct.quantity}</span>
-            <Button size="icon" className="h-8 w-8">
-              <ChevronRightIcon size={18}/>
+            <Button
+              size="icon"
+              className="h-8 w-8"
+              onClick={handleIncreaseQuantityClick}
+            >
+              <ChevronRightIcon size={18} />
             </Button>
-          </div>
           </div>
         </div>
       </div>
+
+      <Button
+        size="icon"
+        variant="ghost"
+        className="h-8 w-8 border border-solid border-muted-foreground"
+        onClick={handleRemoveProductFromCartClick}
+      >
+        <TrashIcon size={18} />
+      </Button>
+    </div>
   );
 };
 
