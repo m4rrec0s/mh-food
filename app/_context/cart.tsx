@@ -22,6 +22,7 @@ interface ICartcontext {
   subTotalPrice: number;
   totalPrice: number;
   totalDiscount: number;
+  totalQuantity: number;
   addProductsToCart: ({ product, quantity, emptyCart, }: {
     product: Prisma.ProductGetPayload<{
         include: {
@@ -45,6 +46,7 @@ export const CartContext = createContext<ICartcontext>({
   subTotalPrice: 0,
   totalPrice: 0,
   totalDiscount: 0,
+  totalQuantity: 0,
   addProductsToCart: () => {},
   decreaseProduct: () => {},
   increaseProduct: () => {},
@@ -65,6 +67,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       return acc + calculateProductTotalPrice(products) * products.quantity;
     }, 0) + Number(products?.[0]?.restaurant.deliveryFee);
   }, [products]);
+
+  const totalQuantity = useMemo(() => {
+    return products.reduce((acc, products) => {
+      return acc + products.quantity;
+    }, 0);
+  }, [products])
 
   const totalDiscount = subTotalPrice - totalPrice + Number(products?.[0]?.restaurant.deliveryFee);
 
@@ -153,6 +161,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         subTotalPrice,
         totalPrice,
         totalDiscount,
+        totalQuantity,
         addProductsToCart,
         decreaseProduct,
         increaseProduct,

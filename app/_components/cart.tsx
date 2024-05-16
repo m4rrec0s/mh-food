@@ -62,7 +62,7 @@ const Cart = () => {
           </div>
         </>
       ) : (
-        "Sacola vazia. Adicione produtos para continuar."
+        <span className="text-center text-muted-foreground">Sacola vazia. Adicione produtos para continuar.</span>
       )}
     </div>
   );

@@ -165,11 +165,11 @@ const ProductDetails = ({
       </div>
 
       <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
-        <SheetContent>
+        <SheetContent className="w-[90vw]">
           <SheetHeader>
-            <SheetTitle className="text-left">Sacola</SheetTitle>
-            <Cart />
+            <SheetTitle className="text-left">Sacola</SheetTitle>  
           </SheetHeader>
+          <Cart />
         </SheetContent>
       </Sheet>
 
