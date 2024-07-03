@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import Image, { ImageProps } from "next/image";
 
 const PromoBanner = (props: ImageProps) => {
