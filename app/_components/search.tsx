@@ -14,17 +14,20 @@ const Search = () => {
     setSearch(e.target.value);
   };
 
-  const handleSearchSubmit : FormEventHandler<HTMLFormElement> = (e) => {
+  const handleSearchSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    
-    if (!search) return;
-    router.push(`/restaurants?search=${search}`)
+
+    if (!search) {
+      return;
+    }
+
+    router.push(`/restaurants?search=${search}`);
   };
 
   return (
     <form className="flex gap-2" onSubmit={handleSearchSubmit}>
       <Input
-        placeholder="Buscar restaurantes, comidas, bebidas..."
+        placeholder="Buscar restaurantes"
         className="border-none"
         onChange={handleChange}
         value={search}

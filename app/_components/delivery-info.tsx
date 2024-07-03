@@ -4,13 +4,14 @@ import { formatCurrency } from "../_helpers/price";
 import { Restaurant } from "@prisma/client";
 
 interface DeliveryInfoProps {
-    restaurant: Pick<Restaurant, "deliveryFee" | "deliveryTimeMinutes">;
+  restaurant: Pick<Restaurant, "deliveryFee" | "deliveryTimeMinutes">;
 }
 
-const DeliveryInfo = ({restaurant}: DeliveryInfoProps) => {
+const DeliveryInfo = ({ restaurant }: DeliveryInfoProps) => {
   return (
-    <div>
-      <Card className="mt-6 flex justify-around p-5 ">
+    <>
+      <Card className="mt-6 flex justify-around py-3">
+        {/* CUSTO */}
         <div className="flex flex-col items-center">
           <div className="flex items-center gap-1 text-muted-foreground">
             <span className="text-xs">Entrega</span>
@@ -26,6 +27,7 @@ const DeliveryInfo = ({restaurant}: DeliveryInfoProps) => {
           )}
         </div>
 
+        {/* TEMPO */}
         <div className="flex flex-col items-center">
           <div className="flex items-center gap-1 text-muted-foreground">
             <span className="text-xs">Entrega</span>
@@ -33,12 +35,11 @@ const DeliveryInfo = ({restaurant}: DeliveryInfoProps) => {
           </div>
 
           <p className="text-xs font-semibold">
-            {Number(restaurant.deliveryTimeMinutes)}
-            min
+            {restaurant.deliveryTimeMinutes} min
           </p>
         </div>
       </Card>
-    </div>
+    </>
   );
 };
 

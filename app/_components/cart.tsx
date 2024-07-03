@@ -10,26 +10,35 @@ import { OrderStatus } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { Loader2 } from "lucide-react";
 import {
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
   AlertDialogTitle,
 } from "./ui/alert-dialog";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
-const Cart = () => {
+interface CartProps {
+  // eslint-disable-next-line no-unused-vars
+  setIsOpen: (isOpen: boolean) => void;
+}
+
+const Cart = ({ setIsOpen }: CartProps) => {
+  const router = useRouter();
+
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
-  const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] =
-    useState(false);
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
 
   const { data } = useSession();
-  const { products, totalPrice, subTotalPrice, totalDiscount, clearCart } =
+
+  const { products, subtotalPrice, totalPrice, totalDiscounts, clearCart } =
     useContext(CartContext);
 
-  const handleCreateOrderClick = async () => {
+  const handleFinishOrderClick = async () => {
     if (!data?.user) return;
 
     const restaurant = products[0].restaurant;
@@ -38,24 +47,38 @@ const Cart = () => {
       setIsSubmitLoading(true);
 
       await createOrder({
-        subTotalPrice,
-        totalDiscount,
+        subtotalPrice,
+        totalDiscounts,
         totalPrice,
         deliveryFee: restaurant.deliveryFee,
         deliveryTimeMinutes: restaurant.deliveryTimeMinutes,
         restaurant: {
-          connect: {
-            id: restaurant.id,
-          },
+          connect: { id: restaurant.id },
         },
         status: OrderStatus.CONFIRMED,
         user: {
-          connect: {
-            id: data.user.id,
+          connect: { id: data.user.id },
+        },
+        products: {
+          createMany: {
+            data: products.map((product) => ({
+              productId: product.id,
+              quantity: product.quantity,
+            })),
           },
         },
       });
+
       clearCart();
+      setIsOpen(false);
+
+      toast("Pedido finalizado com sucesso!", {
+        description: "Você pode acompanhá-lo na tela dos seus pedidos.",
+        action: {
+          label: "Meus Pedidos",
+          onClick: () => router.push("/my-orders"),
+        },
+      });
     } catch (error) {
       console.error(error);
     } finally {
@@ -65,7 +88,7 @@ const Cart = () => {
 
   return (
     <>
-      <div className="flex h-[100vh] max-h-[90vh] flex-col py-4">
+      <div className="flex h-full flex-col py-5">
         {products.length > 0 ? (
           <>
             <div className="flex-auto space-y-4">
@@ -74,27 +97,27 @@ const Cart = () => {
               ))}
             </div>
 
+            {/* TOTAIS */}
             <div className="mt-6">
               <Card>
-                <CardContent className="p-5">
+                <CardContent className="space-y-2 p-5">
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-muted-foreground">Subtotal</span>
-                    <span>{formatCurrency(subTotalPrice)}</span>
+                    <span>{formatCurrency(subtotalPrice)}</span>
                   </div>
 
-                  <Separator className="my-3" />
+                  <Separator />
 
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-muted-foreground">Discontos</span>
-                    <span className="text-muted-foreground">
-                      - {formatCurrency(totalDiscount)}
-                    </span>
+                    <span className="text-muted-foreground">Descontos</span>
+                    <span>- {formatCurrency(totalDiscounts)}</span>
                   </div>
 
-                  <Separator className="my-3" />
+                  <Separator className="h-[0.5px]" />
 
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-muted-foreground">Entrega</span>
+
                     {Number(products?.[0].restaurant.deliveryFee) === 0 ? (
                       <span className="uppercase text-primary">Grátis</span>
                     ) : (
@@ -104,7 +127,7 @@ const Cart = () => {
                     )}
                   </div>
 
-                  <Separator className="my-3" />
+                  <Separator />
 
                   <div className="flex items-center justify-between text-xs font-semibold">
                     <span>Total</span>
@@ -114,37 +137,36 @@ const Cart = () => {
               </Card>
             </div>
 
-            <div className="mt-6">
-              <Button
-                className="w-full"
-                onClick={() => setIsConfirmationDialogOpen(true)}
-              >
-                Finalizar pedido
-              </Button>
-            </div>
+            {/* FINALIZAR PEDIDO */}
+            <Button
+              className="mt-6 w-full"
+              onClick={() => setIsConfirmDialogOpen(true)}
+              disabled={isSubmitLoading}
+            >
+              Finalizar pedido
+            </Button>
           </>
         ) : (
-          <span className="text-center text-muted-foreground">
-            Sacola vazia. Adicione produtos para continuar.
-          </span>
+          <h2 className="text-left font-medium">Sua sacola está vazia.</h2>
         )}
       </div>
 
       <AlertDialog
-        open={isConfirmationDialogOpen}
-        onOpenChange={setIsConfirmationDialogOpen}
+        open={isConfirmDialogOpen}
+        onOpenChange={setIsConfirmDialogOpen}
       >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Deseja finalizar seu pedido?</AlertDialogTitle>
             <AlertDialogDescription>
-              Ao finalizar, você será redirecionado para a página de pedidos.
+              Ao finalizar seu pedido, você concorda com os termos e condições
+              da nossa plataforma.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
             <AlertDialogAction
-              onClick={handleCreateOrderClick}
+              onClick={handleFinishOrderClick}
               disabled={isSubmitLoading}
             >
               {isSubmitLoading && (
@@ -160,6 +182,3 @@ const Cart = () => {
 };
 
 export default Cart;
-function clearCart() {
-  throw new Error("Function not implemented.");
-}
