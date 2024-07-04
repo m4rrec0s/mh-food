@@ -61,10 +61,10 @@ const Home = async () => {
         <CategoryList />
       </div>
 
-      <div className="px-5 pt-6">
+      <div className="pt-6">
         <Link href={`/categories/${pizzasCategory?.id}/products`}>
           <PromoBanner
-            src="/promo-banner-01.png"
+            src="/Banner-01.svg"
             alt="Até 30% de desconto em pizzas!"
           />
         </Link>
@@ -88,10 +88,10 @@ const Home = async () => {
         <ProductList products={products} />
       </div>
 
-      <div className="px-5 pt-6">
+      <div className="pt-6">
         <Link href={`/categories/${burguersCategory?.id}/products`}>
           <PromoBanner
-            src="/promo-banner-02.png"
+            src="/Banner-02.svg"
             alt="A partir de R$17,90 em lanches"
           />
         </Link>
