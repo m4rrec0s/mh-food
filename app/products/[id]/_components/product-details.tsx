@@ -87,7 +87,7 @@ const ProductDetails = ({
 
   return (
     <>
-      <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white py-5">
+      <div className="max-sm:relative max-sm:z-50 max-sm:mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white py-5 lg:rounded-lg lg:border lg:border-gray-400">
         {/* RESTAURANTE */}
         <div className="flex items-center gap-[0.375rem] px-5">
           <div className="relative h-6 w-6">
@@ -154,7 +154,7 @@ const ProductDetails = ({
           <p className="text-sm text-muted-foreground">{product.description}</p>
         </div>
 
-        <div className="mt-6 space-y-3">
+        <div className="mt-6 space-y-3 lg:hidden">
           <h3 className="px-5 font-semibold">Sucos</h3>
           <ProductList products={complementaryProducts} />
         </div>
