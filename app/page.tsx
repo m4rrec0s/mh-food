@@ -57,7 +57,7 @@ const Home = async () => {
       <div className="block px-5 pt-6 lg:hidden">
         <Search />
       </div>
-      <div className="mt-2 hidden lg:block">
+      <div className="hidden lg:block">
         <OfferBanner />
       </div>
 
@@ -90,7 +90,7 @@ const Home = async () => {
           <ProductList products={products} />
         </div>
 
-        <div className="hidden lg:flex justify-center gap-5 px-5 pt-6">
+        <div className="hidden lg:flex justify-center gap-5 pt-6">
           <Link href={`/categories/${pizzasCategory?.id}/products`}>
               <PromoBanner
                 src="/Banner-01.svg"
