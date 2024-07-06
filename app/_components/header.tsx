@@ -21,8 +21,13 @@ import {
 } from "./ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Separator } from "./ui/separator";
+import Search from "./search";
 
-const Header = () => {
+interface HeaderProps {
+  search?: boolean;
+}
+
+const Header = ({search}: HeaderProps) => {
   const { data } = useSession();
 
   const handleSignOutClick = () => signOut();
@@ -41,6 +46,12 @@ const Header = () => {
           />
         </div>
       </Link>
+
+      <div className="hidden lg:block">
+        {search && (
+          <Search />
+        )}
+      </div>
 
       <Sheet>
         <SheetTrigger asChild>

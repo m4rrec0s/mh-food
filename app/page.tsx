@@ -61,11 +61,11 @@ const Home = async () => {
         <OfferBanner />
       </div>
 
-      <div className="pt-6 lg:px-32 flex flex-col justify-center">
-        <div className="px-5 ">
+      <div className="pt-6 px-5 lg:px-32 flex flex-col justify-center">
+        <div className="">
           <CategoryList />
         </div>
-        <div className="pt-6 px-5 lg:hidden">
+        <div className="pt-6 lg:hidden">
           <Link href={`/categories/${pizzasCategory?.id}/products`}>
             <PromoBanner
               src="/Banner-01.svg"
@@ -74,7 +74,7 @@ const Home = async () => {
           </Link>
         </div>
         <div className="space-y-4 pt-6">
-          <div className="flex items-center justify-between px-5">
+          <div className="flex items-center justify-between">
             <h2 className="font-semibold">Pedidos Recomendados</h2>
             <Button
               variant="ghost"
@@ -106,7 +106,7 @@ const Home = async () => {
           </Link>
         </div>
 
-        <div className="pt-6 px-5 lg:hidden">
+        <div className="pt-6 lg:hidden">
           <Link href={`/categories/${burguersCategory?.id}/products`}>
             <PromoBanner
               src="/Banner-02.svg"
@@ -115,7 +115,7 @@ const Home = async () => {
           </Link>
         </div>
         <div className="space-y-4 py-6">
-          <div className="flex items-center justify-between px-5">
+          <div className="flex items-center justify-between">
             <h2 className="font-semibold">Restaurantes Recomendados</h2>
             <Button
               variant="ghost"
