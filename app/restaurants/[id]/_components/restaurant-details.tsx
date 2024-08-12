@@ -19,8 +19,8 @@ interface RestaurantDetailsProps {
 
 const RestaurantDetails = async ({ restaurant }: RestaurantDetailsProps) => {
   return (
-    <div className="max-sm:relative max-sm:z-50 max-sm:mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white py-5 lg:rounded-lg lg:border lg:border-gray-200">
-      <div className="relative z-50 mt-[-1.5rem] flex items-center justify-between rounded-tl-3xl rounded-tr-3xl bg-white px-5 pt-5">
+    <div className="max-sm:relative max-sm:z-50 max-sm:mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white py-5 lg:rounded-lg lg:border lg:border-gray-200 dark:border-gray-800 dark:bg-card">
+      <div className="relative z-50 mt-[-1.5rem] flex items-center justify-between rounded-tl-3xl rounded-tr-3xl bg-white px-5 pt-5 dark:bg-card">
         {/* TITULO */}
         <div className="flex items-center gap-[0.375rem]">
           <div className="relative h-8 w-8">
@@ -35,7 +35,7 @@ const RestaurantDetails = async ({ restaurant }: RestaurantDetailsProps) => {
           <h1 className="text-xl font-semibold">{restaurant.name}</h1>
         </div>
 
-        <div className="flex items-center gap-[3px] rounded-full bg-foreground px-2 py-[2px] text-white">
+        <div className="flex items-center gap-[3px] rounded-full bg-foreground px-2 py-[2px] text-white dark:text-black">
           <StarIcon size={12} className="fill-yellow-400 text-yellow-400" />
           <span className="text-xs font-semibold">5.0</span>
         </div>

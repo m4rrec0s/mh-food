@@ -12,7 +12,7 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "FSW - Foods",
-  description: "MARRECOS© - FSW - Foods", 
+  description: "MARRECOS© - FSW - Foods",
 };
 
 export default function RootLayout({
@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={poppins.className}>
+      <body className={`${poppins.className} dark bg-background`}>
         <AuthProvider>
           <CartProvider>{children}</CartProvider>
         </AuthProvider>

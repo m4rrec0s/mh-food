@@ -54,13 +54,14 @@ const CategoriesPage = async ({ params: { id } }: CategoriesPageProps) => {
             />
           ))}
         </div>
-        <h2 className="mt-6 mb-6 text-lg font-semibold">Restaurantes</h2>
-        <div className="grid grid-cols-4 gap-4">
+        <h2 className="mb-6 mt-6 text-lg font-semibold">Restaurantes</h2>
+        <div className="grid grid-cols-4 gap-4 max-sm:grid-cols-1">
           {category.restaurants.map((restaurant) => (
             <RestaurantItem
               key={restaurant.id}
               restaurant={restaurant}
-              userFavoriteRestaurants={userFavoriteRestaurants}            
+              userFavoriteRestaurants={userFavoriteRestaurants}
+              className="max-w-full"
             />
           ))}
         </div>
