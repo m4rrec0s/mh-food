@@ -36,10 +36,10 @@ const Header = ({search}: HeaderProps) => {
   return (
     <div className="flex w-fill justify-between px-5 pt-6 lg:pb-3 lg:px-32 lg:border border-gray-200 dark:border-gray-800">
       <Link href="/">
-        <div className="relative h-[30px] w-[100px]">
+        <div className="relative h-[40px] w-[100px]">
           <Image
-            src="/logo.png"
-            alt="FSW Foods"
+            src="/logo.svg"
+            alt="MH Foods"
             sizes="100%"
             fill
             className="object-cover"
