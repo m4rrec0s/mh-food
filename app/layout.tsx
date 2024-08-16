@@ -11,8 +11,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "FSW - Foods",
-  description: "MARRECOS© - FSW - Foods",
+  title: "MHfood",
+  description: "MARRECOS© - MHfood",
 };
 
 export default function RootLayout({
