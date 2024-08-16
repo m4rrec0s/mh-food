@@ -15,6 +15,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import {
   Sheet,
   SheetContent,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -157,6 +158,9 @@ const Header = ({search}: HeaderProps) => {
               <span className="block">Sair da conta</span>
             </Button>
           )}
+          <SheetFooter className="absolute bottom-5 w-full text-center right-0">
+            <span className="text-xs text-muted-foreground opacity-80">© Créditos: database - Dicas para DEV`s</span>
+          </SheetFooter>
         </SheetContent>
       </Sheet>
     </div>
