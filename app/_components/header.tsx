@@ -38,8 +38,8 @@ const Header = ({search}: HeaderProps) => {
       <Link href="/">
         <div className="relative h-[40px] w-[100px]">
           <Image
-            src="/logo.svg"
-            alt="MH Foods"
+            src="/logo-icon.svg"
+            alt="MH Food"
             sizes="100%"
             fill
             className="object-cover"
