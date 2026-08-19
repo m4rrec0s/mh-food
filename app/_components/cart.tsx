@@ -6,7 +6,6 @@ import { formatCurrency } from "../_helpers/price";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
 import { createOrder } from "../_actions/order";
-import { OrderStatus } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { Loader2 } from "lucide-react";
 import {
@@ -47,26 +46,11 @@ const Cart = ({ setIsOpen }: CartProps) => {
       setIsSubmitLoading(true);
 
       await createOrder({
-        subtotalPrice,
-        totalDiscounts,
-        totalPrice,
-        deliveryFee: restaurant.deliveryFee,
-        deliveryTimeMinutes: restaurant.deliveryTimeMinutes,
-        restaurant: {
-          connect: { id: restaurant.id },
-        },
-        status: OrderStatus.CONFIRMED,
-        user: {
-          connect: { id: data.user.id },
-        },
-        products: {
-          createMany: {
-            data: products.map((product) => ({
-              productId: product.id,
-              quantity: product.quantity,
-            })),
-          },
-        },
+        restaurantId: restaurant.id,
+        products: products.map((product) => ({
+          productId: product.id,
+          quantity: product.quantity,
+        })),
       });
 
       clearCart();

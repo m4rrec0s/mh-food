@@ -30,7 +30,7 @@ const RestaurantItem = ({
   const handleFavoriteClick = async () => {
     if (!data?.user.id) return;
     try {
-      await toggleFavoriteRestaurant(data?.user.id, restaurant.id);
+      await toggleFavoriteRestaurant(restaurant.id);
       toast.success(
         isFavorite
           ? "Restaurante removido dos favoritos."
