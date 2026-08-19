@@ -5,7 +5,6 @@ import { isRestaurantFavorited } from "@/app/_helpers/restaurant";
 import useToggleFavoriteRestaurant from "@/app/_hooks/use-toggle-favorite-restaurant";
 import { Restaurant, UserFavoriteRestaurant } from "@prisma/client";
 import { ChevronLeftIcon, HeartIcon } from "lucide-react";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -18,8 +17,6 @@ const RestaurantImage = ({
   restaurant,
   userFavoriteRestaurants,
 }: RestaurantImageProps) => {
-  const { data } = useSession();
-
   const router = useRouter();
 
   const isFavorite = isRestaurantFavorited(
@@ -29,7 +26,6 @@ const RestaurantImage = ({
 
   const { handleFavoriteClick } = useToggleFavoriteRestaurant({
     restaurantId: restaurant.id,
-    userId: data?.user.id,
     restaurantIsFavorited: isFavorite,
   });
 
